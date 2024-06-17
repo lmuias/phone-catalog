@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Category.module.scss';
 import { PageSection } from '../../../types/PageSection';
 import { GadgetCategory } from '../../../types/GadgetCategory';
+// eslint-disable-next-line
 import { Link } from 'react-router-dom';
 
 interface CategoryData {
