@@ -25,3 +25,28 @@ an online phone shop designed to help customers explore products, read detailed 
 
 Explore the Figma design for the Phone Catalog project:
 [Figma - Phone Catalog (V2) Rounded Style 2](https://www.figma.com/file/FRxncC4lfyhs6og1L6FGEU/Phone-catalog-(V2)-Rounded-Style-2?node-id=0%3A1)
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Node.js (version X.X.X or higher)
+- npm (or yarn)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/phone-catalog.git
+cd phone-catalog
+
+npm install
+# or
+yarn install
+
+npm start
+# or
+yarn start
+
+Replace `X.X.X` with the specific Node.js version your project requires. This section provides clear steps for users to clone, install dependencies, run the project locally, and build it for production, ensuring they have the necessary prerequisites and instructions.
