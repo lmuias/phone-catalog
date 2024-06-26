@@ -11,11 +11,21 @@ interface Props {
 }
 
 export const ModelItem: React.FC<Props> = ({ model, modelsTitle }) => {
-  const { favourites, cart, handleAddCart, handleAddFavourite } =
-    useAppContext();
+  const {
+    favourites,
+    cart,
+    handleAddCart,
+    handleAddFavourite,
+    setActiveColor,
+    setStartMemory,
+  } = useAppContext();
 
   const selected = favourites.some(fav => fav.id === model.id);
   const added = cart.some(item => item.id === model.id);
+  const handleSetStartValues = () => {
+    setActiveColor(model.color);
+    setStartMemory(model.capacity);
+  };
 
   return (
     <div className={`models__item ${styles.item}`}>
@@ -23,6 +33,7 @@ export const ModelItem: React.FC<Props> = ({ model, modelsTitle }) => {
         <Link
           to={`/${model.category}/${model.itemId}`}
           className={styles.item__photo}
+          onClick={handleSetStartValues}
         >
           <img className={styles.item__image} src={model.image} alt="" />
         </Link>
@@ -30,6 +41,7 @@ export const ModelItem: React.FC<Props> = ({ model, modelsTitle }) => {
           <Link
             to={`/${model.category}/${model.itemId}`}
             className={styles.item__title}
+            onClick={handleSetStartValues}
           >
             <p>{model.name}</p>
           </Link>

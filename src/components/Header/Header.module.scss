@@ -14,6 +14,7 @@
   justify-content: space-between;
   background-color: #fff;
   z-index: 50;
+  overflow: hidden;
 
   @include on-desktop {
     height: 65px;
@@ -119,6 +120,10 @@
     @include on-tablet {
       display: none;
     }
+  }
+
+  &__burger-menu {
+    transition: transform 0.3s;
   }
 
   &__span {

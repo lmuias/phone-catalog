@@ -9,6 +9,7 @@
   height: 100vh;
   background: #fff;
   z-index: 90;
+  transition: transform 0.3s;
 
   &__logo img{
     width: 64px;

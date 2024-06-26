@@ -3,15 +3,20 @@ import styles from './BurgerMenu.module.scss';
 import classNames from 'classnames';
 import { PageSection } from '../../types/PageSection';
 import { useAppContext } from '../../AppContext';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const BurgerMenu: React.FC = () => {
-  const { setCurrentPage, currentPage } = useAppContext();
-  const { cart, favourites } = useAppContext();
-  const navigate = useNavigate();
+  const {
+    setCurrentPage,
+    currentPage,
+    cart,
+    favourites,
+    menuIsOpen,
+    setMenuIsOpen,
+  } = useAppContext();
 
   const handleCloseMenu = () => {
-    navigate(-1); // Go back to the previous page
+    setMenuIsOpen(false);
   };
 
   const handleOpenPage = (link: PageSection) => {
@@ -31,7 +36,9 @@ export const BurgerMenu: React.FC = () => {
   );
 
   return (
-    <div className={styles.menu}>
+    <div
+      className={classNames(styles.menu, { 'burger-transform': !menuIsOpen })}
+    >
       <div className={styles.menu__header}>
         <a href="#" className={styles.menu__logo}>
           <img src="img/Logo.svg" alt="" />

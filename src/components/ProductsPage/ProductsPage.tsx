@@ -71,18 +71,18 @@ export const ProductsPage: React.FC<Props> = ({ product }) => {
   };
 
   useEffect(() => {
-    setLoading(true); // Встановлюємо loading в true перед початком завантаження
-
     const fetchAndFilterData = async () => {
-      const allProducts = await getProduct();
-      const filteredData = allProducts.filter(
-        prod => prod.category === currentPage.toLowerCase(),
-      );
+      if (currentPage) {
+        setLoading(true); // Встановлюємо loading в true перед початком завантаження
+        const allProducts = await getProduct();
+        const filteredData = allProducts.filter(
+          prod => prod.category.toLowerCase() === currentPage.toLowerCase(),
+        );
+        const sortedData = sortedProduct(filteredData, filterBy);
 
-      const sortedData = sortedProduct(filteredData, filterBy);
-
-      setFilteredProduct(sortedData);
-      setLoading(false); // Після завершення завантаження встановлюємо loading в false
+        setFilteredProduct(sortedData);
+        setLoading(false); // Після завершення завантаження встановлюємо loading в false
+      }
     };
 
     fetchAndFilterData();

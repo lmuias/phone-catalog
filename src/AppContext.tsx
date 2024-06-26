@@ -22,6 +22,12 @@ interface AppContextInterface {
   handleIncrement: (id: number) => void;
   handleDecrement: (id: number) => void;
   itemCounts: Record<number, number>;
+  menuIsOpen: boolean;
+  setMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  activeColor: string | undefined;
+  startMemory: string | undefined;
+  setActiveColor: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setStartMemory: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const AppContext = createContext<AppContextInterface | undefined>(undefined);
@@ -36,6 +42,9 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [phones, setPhones] = useState<Products[]>([]);
   const [tablets, setTablets] = useState<Products[]>([]);
   const [accessories, setAccessories] = useState<Products[]>([]);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [activeColor, setActiveColor] = useState<string | undefined>(undefined);
+  const [startMemory, setStartMemory] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,10 +142,16 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
     });
   };
 
+  function capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     const savedFavourites = localStorage.getItem('favourites');
     const savedItemCounts = localStorage.getItem('itemCounts');
+    const savedPage = localStorage.getItem('currentPage');
+    const hashPage = window.location.hash.replace('#/', '');
 
     if (savedCart) {
       setCart(JSON.parse(savedCart));
@@ -149,13 +164,20 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
     if (savedItemCounts) {
       setItemCounts(JSON.parse(savedItemCounts));
     }
+
+    if (hashPage) {
+      setCurrentPage(capitalizeFirstLetter(hashPage) as PageSection);
+    } else if (savedPage) {
+      setCurrentPage(PageSection[savedPage as keyof typeof PageSection]);
+    }
   }, []);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('favourites', JSON.stringify(favourites));
     localStorage.setItem('itemCounts', JSON.stringify(itemCounts));
-  }, [cart, favourites, itemCounts]);
+    localStorage.setItem('currentPage', JSON.stringify(currentPage));
+  }, [cart, currentPage, favourites, itemCounts]);
 
   return (
     <AppContext.Provider
@@ -177,6 +199,12 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
         setPhones,
         setTablets,
         setAccessories,
+        menuIsOpen,
+        setMenuIsOpen,
+        activeColor,
+        setActiveColor,
+        startMemory,
+        setStartMemory,
       }}
     >
       {children}

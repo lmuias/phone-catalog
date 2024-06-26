@@ -21,21 +21,22 @@ interface Props {
 }
 
 export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
-  const { favourites, setFavourites, cart, setCart, currentPage } =
-    useAppContext();
+  const {
+    favourites,
+    setFavourites,
+    cart,
+    setCart,
+    currentPage,
+    activeColor,
+    setActiveColor,
+    startMemory,
+    setStartMemory,
+  } = useAppContext();
   const { productId } = useParams();
   const location = useLocation();
   const category = location.pathname.split('/')[1];
   const [model, setModel] = useState<Phone | Accessories | null>(null);
   const [mainImage, setMainImage] = useState(0);
-  const firstColor = location.pathname.split('/').pop();
-  const [activeColor, setActiveColor] = useState<string | undefined>(
-    firstColor,
-  );
-
-  const [startMemory, setStartMemory] = useState<string | undefined>(
-    firstColor,
-  );
 
   const [loading, setLoading] = useState(false);
 
@@ -138,7 +139,6 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
       }
 
       setModel(fetchedModel); // Set the fetched model
-
       setLoading(false); // Set loading to false after data is fetched
     };
 
@@ -224,14 +224,14 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
                           key={memory}
                           className={classNames(styles.details__memory, {
                             [styles['details__memory--active']]:
-                              startMemory === memory,
+                              memory === startMemory,
                           })}
                           onClick={() => setStartMemory(memory)}
                         >
                           <p
                             className={classNames(styles.details__amount, {
                               [styles['details__amount--active']]:
-                                startMemory === memory,
+                                memory === startMemory,
                             })}
                           >
                             {memory}

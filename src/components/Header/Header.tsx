@@ -8,7 +8,8 @@ export const Header = () => {
   const pagesToShow = Object.values(PageSection).filter(
     link => link !== PageSection.Favorites && link !== PageSection.Cart,
   );
-  const { setCurrentPage, favourites, cart } = useAppContext();
+  const { setCurrentPage, favourites, cart, setMenuIsOpen, menuIsOpen } =
+    useAppContext();
   const getActiveLink = ({ isActive }: { isActive: boolean }) =>
     classNames(styles.header__link, {
       [styles['header__link--active']]: isActive,
@@ -81,9 +82,14 @@ export const Header = () => {
         </nav>
       </div>
       <div className={styles['header__burger-icon']}>
-        <NavLink to="/menu" className={styles['header__burger-menu']}>
+        <button
+          className={classNames(styles['header__burger-menu'], {
+            'burger-icon-transform': menuIsOpen,
+          })}
+          onClick={() => setMenuIsOpen(true)}
+        >
           <img src="img/header/burger-menu.svg" alt="burger-menu" />
-        </NavLink>
+        </button>
       </div>
     </header>
   );

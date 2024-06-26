@@ -5,7 +5,6 @@ import { Favourites } from './components/Favourites';
 import { Cart } from './components/Cart';
 import { Route, Routes } from 'react-router-dom';
 import { ItemCard } from './components/ItemCard';
-import { BurgerMenu } from './components/BurgerMenu';
 import productsFromServer from './api/products.json';
 import { useAppContext } from './AppContext';
 
@@ -25,7 +24,6 @@ export const Main = () => {
             />
           }
         />
-        <Route path="menu" element={<BurgerMenu />} />
         <Route path="phones">
           <Route index element={<ProductsPage product={phones} />} />
           <Route path=":productId?" element={<ItemCard swiperIndex={3} />} />
