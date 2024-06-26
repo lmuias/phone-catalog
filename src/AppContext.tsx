@@ -22,6 +22,7 @@ interface AppContextInterface {
   handleIncrement: (id: number) => void;
   handleDecrement: (id: number) => void;
   itemCounts: Record<number, number>;
+  setItemCounts: React.Dispatch<React.SetStateAction<Record<number, number>>>;
   menuIsOpen: boolean;
   setMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   activeColor: string | undefined;
@@ -205,6 +206,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
         setActiveColor,
         startMemory,
         setStartMemory,
+        setItemCounts,
       }}
     >
       {children}

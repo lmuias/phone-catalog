@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Cart.module.scss';
 import { Footer } from '../Footer';
 import { Products } from '../../types/Products';
@@ -11,8 +11,14 @@ interface Props {
 }
 
 export const Cart: React.FC<Props> = ({ models }) => {
-  const { cart, setCart, itemCounts, handleDecrement, handleIncrement } =
-    useAppContext();
+  const {
+    cart,
+    setCart,
+    itemCounts,
+    setItemCounts,
+    handleDecrement,
+    handleIncrement,
+  } = useAppContext();
   const [visibleModal, setVisibleModal] = useState(false);
   const navigate = useNavigate();
 
@@ -24,8 +30,20 @@ export const Cart: React.FC<Props> = ({ models }) => {
     setCart(prevItems => prevItems.filter(item => item.id !== id));
   };
 
+  useEffect(() => {
+    // Ensure itemCounts has default values for each item in the cart
+    const newCounts = { ...itemCounts };
+
+    cart.forEach(item => {
+      if (!newCounts[item.id]) {
+        newCounts[item.id] = 1; // default to 1 if not set
+      }
+    });
+    setItemCounts(newCounts);
+  }, [cart, setItemCounts, itemCounts]);
+
   const totalPrice = visibleCartItems.reduce(
-    (total, item) => total + item.price * itemCounts[item.id],
+    (total, item) => total + item.price * (itemCounts[item.id] || 0),
     0,
   );
 
