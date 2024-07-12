@@ -32,7 +32,7 @@ Explore the Figma design for the Phone Catalog project:
 
 Make sure you have the following installed:
 
-- Node.js (version X.X.X or higher)
+- Node.js
 - npm (or yarn)
 
 ### Clone the Repository
@@ -49,4 +49,4 @@ npm start
 # or
 yarn start
 
-Replace `X.X.X` with the specific Node.js version your project requires. This section provides clear steps for users to clone, install dependencies, run the project locally, and build it for production, ensuring they have the necessary prerequisites and instructions.
+This section provides clear steps for users to clone, install dependencies, run the project locally, and build it for production, ensuring they have the necessary prerequisites and instructions.
